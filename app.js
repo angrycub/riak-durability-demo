@@ -110,7 +110,8 @@ function load_gen(done) {
                 dispatch_op(current_object);
             }
         }
-        return setImmediate(non_block_loop); // fake TCO so we don't get RangeErrors
+        setImmediate = global.setImmediate || process.nextTick;
+	return setImmediate(non_block_loop); // fake TCO so we don't get RangeErrors
     }
     non_block_loop();
 }
